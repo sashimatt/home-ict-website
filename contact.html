@@ -1,17 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | Home ICT Services</title>
-
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Get in touch with Home ICT Services for expert Network Setup, Technical Support, and Cybersecurity solutions.">
-    <meta name="keywords" content="Contact Home ICT Services, ICT Support, Network Solutions, Cybersecurity">
-    <meta name="author" content="Home ICT Services">
-
-    <link rel="stylesheet" href="styles.css">
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,109 +14,112 @@
             background: #f9f9f9;
             color: #333;
         }
-
         header {
             background: #2a9d8f;
             color: white;
             padding: 20px;
             text-align: center;
-            animation: fadeIn 1.5s ease-in;
         }
-
-        .contact-container {
-            max-width: 800px;
+        .container {
+            max-width: 600px;
             margin: 40px auto;
             padding: 20px;
             background: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            animation: fadeUp 1s ease-in;
         }
-
-        .contact-container h2 {
-            text-align: center;
-            color: #264653;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
         input, textarea {
+            width: 100%;
             padding: 10px;
+            margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 1rem;
         }
-
         button {
-            padding: 10px 20px;
             background: #2a9d8f;
             color: white;
+            padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            font-size: 1rem;
             cursor: pointer;
             transition: background 0.3s;
         }
-
         button:hover {
             background: #21867a;
         }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #264653;
+        nav a {
             color: white;
-            animation: fadeIn 1.5s ease-in;
+            text-decoration: none;
+            margin: 0 15px;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        #success-message {
+            color: green;
+            margin-top: 20px;
+            display: none;
         }
-
-        @keyframes fadeUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
     </style>
 </head>
+
 <body>
 
     <header>
         <h1>Contact Home ICT Services</h1>
         <p>We are here to assist you with all your ICT needs.</p>
+        <nav>
+            <a href="index.html">Home</a>
+        </nav>
     </header>
 
-    <div class="contact-container">
-        <h2>Get In Touch</h2>
-
-        <form action="https://formspree.io/f/xpwqvowr" method="POST">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
-
-            <label for="email">Your Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-
-            <label for="message">Your Message</label>
-            <textarea id="message" name="message" rows="5" placeholder="Write your message" required></textarea>
-
+    <div class="container">
+        <h2>Get in Touch</h2>
+        
+        <!-- Contact Form -->
+        <form id="contactForm" action="https://formspree.io/f/your_form_id" method="POST" onsubmit="clearForm(event)">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            
             <button type="submit">Send Message</button>
         </form>
+
+        <!-- Success Message -->
+        <p id="success-message">Thank you! Your message has been sent.</p>
     </div>
 
-    <footer>
-        <p>&copy; 2025 Home ICT Services | All Rights Reserved | <a href="/privacy-policy.html">Privacy Policy</a></p>
-    </footer>
+    <!-- JavaScript to Clear Form -->
+    <script>
+        function clearForm(event) {
+            event.preventDefault(); // Prevent form from redirecting
+            const form = document.getElementById('contactForm');
+            const successMessage = document.getElementById('success-message');
+
+            // Submit form via Fetch API (for Formspree)
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Clear the form fields
+                    form.reset();
+                    // Show success message
+                    successMessage.style.display = 'block';
+                } else {
+                    alert('Oops! Something went wrong.');
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+        }
+    </script>
 
 </body>
+
 </html>
